@@ -6,8 +6,6 @@ import '../../CSS/toDoPage.css';
 const ToDoPage = ({apiURL, localApiURL}) => {
     const savedUser = sessionStorage.getItem('signedInUser');
     const parsedSavedUser = savedUser ? JSON.parse(savedUser) : {};
-    console.log(parsedSavedUser.user_id);
-
     return (
         <>
             <Navbar className="navbar" />

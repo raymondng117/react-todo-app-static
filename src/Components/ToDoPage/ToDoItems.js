@@ -12,10 +12,9 @@ const ToDoItems = ({ userid, selectedList, localURL, apiURL, sendSelectedItemToP
     const [toggleToDoList, setToggleToDoList] = useState(true);
     const [toggleDoingList, setToggleDoingList] = useState(true);
     const [toggleDoneList, setToggleDoneList] = useState(true);
-    const [toggleItemInput, setToggleItemInput] = useState(false)
-    const [deleteButton, setDeleteButton] = useState(false)
+    const [toggleItemInput, setToggleItemInput] = useState(false);
+    const [deleteButton, setDeleteButton] = useState(false);
 
-    console.log(selectedList);
     const URL = apiURL;
 
     async function GetToDoItems(userId, listid) {
@@ -36,7 +35,6 @@ const ToDoItems = ({ userid, selectedList, localURL, apiURL, sendSelectedItemToP
 
                 if (response.ok) {
                     const data = await response.json();
-                    console.log(data);
                     data.forEach(item => {
                         if (item.status == 'todo') {
                             items.toDo.push(item);
@@ -47,7 +45,6 @@ const ToDoItems = ({ userid, selectedList, localURL, apiURL, sendSelectedItemToP
                         }
                     });
 
-                    console.log(items)
                     return items;
 
                 } else {

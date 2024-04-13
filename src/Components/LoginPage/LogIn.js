@@ -28,8 +28,7 @@ const Login = ({ apiURL }) => {
 
             if (response.ok) {
                 const data = await response.json();
-                if (data.authenticated) {
-                    console.log(data.user);
+                if (data.authenticated) {   console.log(data.user);
                     sessionStorage.setItem('signedInUser', JSON.stringify(data.user));
                 } else {
                     errorMsg = 'Invalid email or password';
