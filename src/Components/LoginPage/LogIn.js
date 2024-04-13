@@ -7,6 +7,9 @@ import { Link } from 'react-router-dom';
 
 
 const Login = ({ apiURL }) => {
+
+    sessionStorage.removeItem('signedInUser');
+
     const [useremail, setUserEmail] = useState('');
     const [password, setPassword] = useState('');
     const [errMsg, setErrorMsg] = useState('');
