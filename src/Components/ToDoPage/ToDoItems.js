@@ -49,7 +49,7 @@ const ToDoItems = ({ userid, selectedList, localURL, apiURL, sendSelectedItemToP
 
                 } else {
                     return items;
-                    // throw new Error(response.statusText);
+                    throw new Error(response.statusText);
                 }
             } catch (error) {
                 // throw error;
