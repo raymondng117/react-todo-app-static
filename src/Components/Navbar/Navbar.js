@@ -48,7 +48,7 @@ const Navbar = () => {
                 </div>
                 {showDropdown && signedInUser && (
                     <div className="dropdown">
-                        <div className="dropdown-option"><Link to="/settings" >Setting</Link></div>
+                        <div className="dropdown-option"><Link to="/settings" className="link-in-drop">Setting</Link></div>
                         <div className="dropdown-option" onClick={logOut}>Logout</div>
                     </div>
                 )}

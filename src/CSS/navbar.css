@@ -65,6 +65,9 @@
   /* Aligns the dropdown to the rightmost position */
 }
 
+.link-in-drop {
+  color: black;
+}
 
 .dropdown-option {
   display: block;

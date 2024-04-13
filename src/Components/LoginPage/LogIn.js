@@ -10,7 +10,7 @@ const Login = ({ apiURL }) => {
     const [useremail, setUserEmail] = useState('');
     const [password, setPassword] = useState('');
     const [errMsg, setErrorMsg] = useState('');
-    const navigate = useNavigate(); // Move useNavigate hook call outside of the conditional logic
+    const navigate = useNavigate(); 
 
     const URL = apiURL;
 
@@ -43,10 +43,25 @@ const Login = ({ apiURL }) => {
         return errorMsg;
     }
 
+    const handleChangeEmail = (e) => {
+        setUserEmail(e.target.value);
+        if (errMsg) {
+            setErrorMsg('');
+        }
+    };
+
+    const handleChangePassword = (e) => {
+        setPassword(e.target.value);
+        if (errMsg) {
+            setErrorMsg('');
+        }
+    };
+
+
     const handleLogin = async (e) => {
         e.preventDefault();
-        const loginErrMsg = await GetUser(useremail, password); // Retrieve error message from GetLoginData
-        setErrorMsg(loginErrMsg); // Set error message state
+        const loginErrMsg = await GetUser(useremail, password); 
+        setErrorMsg(loginErrMsg); 
 
         if (!loginErrMsg) {
             navigate('/todopage');
@@ -61,11 +76,11 @@ const Login = ({ apiURL }) => {
                 <form onSubmit={handleLogin}>
                     <div className="form-group">
                         <label htmlFor="useremail">User email:</label>
-                        <input type="text" id="useremail" className='form-control' value={useremail} onChange={(e) => setUserEmail(e.target.value)} />
+                        <input type="text" id="useremail" className='form-control' value={useremail} onChange={(e) => handleChangeEmail(e)} />
                     </div>
                     <div className="form-group">
                         <label htmlFor="password">Password:</label>
-                        <input type="password" id="password" className='form-control' value={password} onChange={(e) => setPassword(e.target.value)} />
+                        <input type="password" id="password" className='form-control' value={password} onChange={(e) => handleChangePassword(e)} />
                     </div>
                     <button type="submit">Login</button>
                 </form>
