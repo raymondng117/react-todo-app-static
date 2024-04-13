@@ -54,7 +54,6 @@ const ToDoLists = ({ userid, localURL, apiURL }) => {
                 method: "DELETE"
             }).then(response => {
                 if (response.ok) {
-                    console.log(toToDoLists)
                     if (toToDoLists.length == 0) {
                         setSelectedList([]);
                     }
@@ -90,7 +89,6 @@ const ToDoLists = ({ userid, localURL, apiURL }) => {
             })
             .then(data => {
                 const newListId = data.newListId;
-                console.log("New list ID:", newListId);
                 setToDoLists(prevToDoLists => [...prevToDoLists, { list_id: newListId, list_name: inputValue }]);
                 return newListId;
             })
@@ -131,7 +129,7 @@ const ToDoLists = ({ userid, localURL, apiURL }) => {
                     setToDoLists(lists);
                 }
             } catch (error) {
-                console.error('Error adding to-do list:', error);
+                // console.error('Error adding to-do list:', error);
             }
         }
     }

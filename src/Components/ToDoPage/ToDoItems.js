@@ -49,10 +49,10 @@ const ToDoItems = ({ userid, selectedList, localURL, apiURL, sendSelectedItemToP
 
                 } else {
                     return items;
-                    throw new Error(response.statusText);
+                    // throw new Error(response.statusText);
                 }
             } catch (error) {
-                throw error;
+                // throw error;
             }
         } else {
             return null;
@@ -92,7 +92,6 @@ const ToDoItems = ({ userid, selectedList, localURL, apiURL, sendSelectedItemToP
             }
         }).then(data => {
             const newItemId = data.newItemId;
-            console.log("New Item ID:", newItemId);
             setToDoItems(prevToDoItems => {
                 const updatedToDoItems = {
                     ...prevToDoItems,
@@ -111,7 +110,7 @@ const ToDoItems = ({ userid, selectedList, localURL, apiURL, sendSelectedItemToP
             });
         })
             .catch(error => {
-                return error;
+                // return error;
             });
     }
 
@@ -229,7 +228,7 @@ const ToDoItems = ({ userid, selectedList, localURL, apiURL, sendSelectedItemToP
                 setToggleDoingList(true);
                 setToggleDoneList(true);
             } catch (error) {
-                console.error("Error fetching ToDo Items:", error);
+                // console.error("Error fetching ToDo Items:", error);
             }
         };
         fetchToDoItems();

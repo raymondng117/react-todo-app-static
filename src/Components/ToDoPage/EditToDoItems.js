@@ -108,7 +108,7 @@ const EditToDoItems = ({ selectedItem, apiURL, sendUpdatedItemFromChild, selecte
             try {
                 await GetToDoItemById(item[0].item_id);
             } catch (error) {
-                console.error("Error fetching ToDo Items:", error);
+                // console.error("Error fetching ToDo Items:", error);
             }
         };
         fetchToDoItemsById();
