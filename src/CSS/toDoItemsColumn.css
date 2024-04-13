@@ -1,0 +1,120 @@
+.list-name {
+    background-color: #2c2b2b;
+    height: 8%;
+}
+
+.subtitle {
+    justify-content: start;
+    height: 6%;
+    background-color: #3b3a39;
+    transition: background-color 0.3s;
+}
+
+.subtitle:hover {
+    background-color: #444241;
+}
+
+.arrowicon {
+    height: 100%;
+    transition: color 0.3s;
+    /* Smooth transition effect */
+}
+
+.arrowicon:hover {
+    color: #fff;
+    /* Change icon color on hover */
+}
+
+.table td {
+    font-size: 14px;
+    /* Adjust font size */
+    padding: 0.5rem;
+    /* Adjust padding */
+}
+
+.table th {
+    font-size: 16px;
+    width: 25%;
+}
+
+.smaller-table th,
+.smaller-table td {
+    font-size: 12px;
+    /* Adjust font size */
+    padding: 0.3rem;
+    /* Adjust padding */
+}
+
+.add-item-input {
+    width: 150px;
+    /* Adjust width */
+    height: 30px;
+    /* Adjust height */
+    background-color: #252424;
+    /* Change background color */
+    border: 1px solid whitesmoke;
+    /* Add border */
+    color: whitesmoke;
+    /* Change text color */
+    padding-right: 1%;
+}
+
+.tool-bar {
+    padding-bottom: 5px;
+}
+
+.add-item-input:focus {
+    outline: none;
+    border: 1px solid;
+    border-color: #007bff;
+}
+
+.tool-button {
+    height: 30px;
+    border: none;
+    cursor: pointer;
+    font-size: 16px;
+    color: red;
+    transition: color 0.3s;
+    padding-right: 1%;
+}
+
+.tool-button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 16px;
+    color: #999;
+    transition: color 0.3s, background-color 0.3s; /* Smooth transition for color and background-color */
+}
+
+.tool-button:hover {
+    background-color: #444241;
+    color: #fff;
+}
+
+.tool-button:active {
+    background-color:#007bff !important; 
+    color: #fff !important;
+}
+
+/* Add this CSS to your stylesheet */
+.deleteButton,
+.editButton {
+    height: 15px;
+    width: 15px;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer; /* Change cursor to pointer to indicate interactivity */
+    transition: background-color 0.3s; /* Smooth transition for hover effect */
+}
+
+.deleteButton:hover,
+.editButton:hover {
+    background-color: rgb(150, 133, 133); /* Change background color on hover */
+}
+
+.deleteButton:active,
+.editButton:active {
+    transform: translateY(1px); /* Move the button down slightly when clicked */
+}
