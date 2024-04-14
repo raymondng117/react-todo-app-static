@@ -189,43 +189,43 @@ const ToDoLists = ({ userid, localURL, apiURL }) => {
         setDraggingIndex(null);
     };
 
-    const handleTouchStart = (index) => {
-        setDraggingIndex(index);
-    };
+    // const handleTouchStart = (index) => {
+    //     setDraggingIndex(index);
+    // };
 
-    const handleTouchMove = (event) => {
-        // Prevent default touch behavior to prevent scrolling while dragging
-        event.preventDefault();
+    // const handleTouchMove = (event) => {
+    //     // Prevent default touch behavior to prevent scrolling while dragging
+    //     event.preventDefault();
     
-        if (draggingIndex === null) return;
+    //     if (draggingIndex === null) return;
     
-        // Get the touch position relative to the container
-        const touchY = event.touches[0].clientY;
-        const containerRect = event.currentTarget.getBoundingClientRect();
-        const relativeY = touchY - containerRect.top;
+    //     // Get the touch position relative to the container
+    //     const touchY = event.touches[0].clientY;
+    //     const containerRect = event.currentTarget.getBoundingClientRect();
+    //     const relativeY = touchY - containerRect.top;
     
-        // Calculate the index of the list item being dragged
-        const itemHeight = containerRect.height / toToDoLists.length;
-        let newIndex = Math.floor(relativeY / itemHeight);
+    //     // Calculate the index of the list item being dragged
+    //     const itemHeight = containerRect.height / toToDoLists.length;
+    //     let newIndex = Math.floor(relativeY / itemHeight);
     
-        // Ensure the index stays within bounds
-        newIndex = Math.max(0, Math.min(toToDoLists.length - 1, newIndex));
+    //     // Ensure the index stays within bounds
+    //     newIndex = Math.max(0, Math.min(toToDoLists.length - 1, newIndex));
     
-        // If the new index is different from the current dragging index, update the lists order
-        if (newIndex !== draggingIndex) {
-            const newLists = [...toToDoLists];
-            const draggedItem = newLists[draggingIndex];
-            newLists.splice(draggingIndex, 1);
-            newLists.splice(newIndex, 0, draggedItem);
-            setToDoLists(newLists);
-            setDraggingIndex(newIndex);
-        }
-    };
+    //     // If the new index is different from the current dragging index, update the lists order
+    //     if (newIndex !== draggingIndex) {
+    //         const newLists = [...toToDoLists];
+    //         const draggedItem = newLists[draggingIndex];
+    //         newLists.splice(draggingIndex, 1);
+    //         newLists.splice(newIndex, 0, draggedItem);
+    //         setToDoLists(newLists);
+    //         setDraggingIndex(newIndex);
+    //     }
+    // };
     
 
-    const handleTouchEnd = () => {
-        setDraggingIndex(null);
-    };
+    // const handleTouchEnd = () => {
+    //     setDraggingIndex(null);
+    // };
 
     useEffect(() => {
         const fetchToDoList = async () => {
@@ -282,9 +282,9 @@ const ToDoLists = ({ userid, localURL, apiURL }) => {
                             onDragStart={() => handleDragStart(index)}
                             onDragOver={() => handleDragOver(index)}
                             onDragEnd={handleDragEnd}
-                            onTouchStart={() => handleTouchStart(index)}
-                            onTouchMove={(event) => handleTouchMove(event)}
-                            onTouchEnd={handleTouchEnd}
+                            // onTouchStart={() => handleTouchStart(index)}
+                            // onTouchMove={(event) => handleTouchMove(event)}
+                            // onTouchEnd={handleTouchEnd}
                             >
                                 <div className={`btn btn-secondary list-item ${selectedListIndex === index ? 'selected' : ''}`} onClick={(e) => handleSelectedList(e, index)}>{item.list_name}</div>
                                 {deleteIcon && (
