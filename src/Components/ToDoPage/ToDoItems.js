@@ -280,7 +280,7 @@ const ToDoItems = ({ userid, selectedList, localURL, apiURL, sendSelectedItemToP
             </div>
 
             {/* Items */}
-            {/* todo */}
+            {/* to-do */}
             <div className='d-flex subtitle align-items-center' onClick={handleToggleToDoList}>
                 {toggleToDoList ? <IoIosArrowDropdown className='arrowicon ms-3' /> : <IoIosArrowDropright className='arrowicon ms-3' />}
                 <div className='fs-6 fw-bolder ms-3'>To do {toDoItems && toDoItems.toDo && `(${toDoItems.toDo.length})`}</div>
