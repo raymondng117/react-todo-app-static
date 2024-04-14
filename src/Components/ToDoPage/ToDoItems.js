@@ -289,7 +289,7 @@ const ToDoItems = ({ userid, selectedList, localURL, apiURL, sendSelectedItemToP
                 <table className='table table-hover table-dark smaller-table'>
                     <thead>
                         <tr>
-                            <th scope="col" className='col-1 text-center'>Index</th>
+                            <th scope="col" className='col-1 text-center'></th>
                             <th scope="col" className='col-4 text-center'>Name</th>
                             <th scope="col" className='col-3 text-center'>Due</th>
                             <th scope="col" className='col-3 text-center'>Completed</th>
@@ -299,7 +299,7 @@ const ToDoItems = ({ userid, selectedList, localURL, apiURL, sendSelectedItemToP
                     <tbody>
                         {toDoItems && toDoItems.toDo && toDoItems.toDo.map((item, index) => (
                             <tr key={index}>
-                                <th scope="row" className='text-center'> {index + 1} </th>
+                                <th scope="row" className='text-end'> {index + 1} </th>
                                 <td className='text-center'>{item.item_name}</td>
                                 <td className='text-center'>{parseDate(item.due_date)}</td>
                                 <td className='text-center'>{parseDate(item.complete_date)}</td>
@@ -328,7 +328,7 @@ const ToDoItems = ({ userid, selectedList, localURL, apiURL, sendSelectedItemToP
             {toggleDoingList && <table className='table table-hover table-dark smaller-table'>
                 <thead>
                     <tr>
-                        <th scope="col" className='col-1 text-center'>Index</th>
+                        <th scope="col" className='col-1 text-center'></th>
                         <th scope="col" className='col-4 text-center'>Name</th>
                         <th scope="col" className='col-3 text-center'>Due</th>
                         <th scope="col" className='col-3 text-center'>Completed</th>
@@ -338,7 +338,7 @@ const ToDoItems = ({ userid, selectedList, localURL, apiURL, sendSelectedItemToP
                 <tbody>
                     {toDoItems && toDoItems.doing && toDoItems.doing.map((item, index) => (
                         <tr key={index} id={item.item_id}>
-                            <th scope="row" className='text-center'>{index + 1}</th>
+                            <th scope="row" className='text-end'>{index + 1}</th>
                             <td className='text-center'>{item.item_name}</td>
                             <td className='text-center'>{parseDate(item.due_date)}</td>
                             <td className='text-center'> {parseDate(item.complete_date)}</td>
@@ -366,7 +366,7 @@ const ToDoItems = ({ userid, selectedList, localURL, apiURL, sendSelectedItemToP
             {toggleDoneList && <table className='table table-hover table-dark smaller-table'>
                 <thead>
                     <tr>
-                        <th scope="col" className='col-1 text-center'>Index</th>
+                        <th scope="col" className='col-1 text-center'></th>
                         <th scope="col" className='col-4 text-center'>Name</th>
                         <th scope="col" className='col-3 text-center'>Due</th>
                         <th scope="col" className='col-3 text-center'>Completed</th>
@@ -376,7 +376,7 @@ const ToDoItems = ({ userid, selectedList, localURL, apiURL, sendSelectedItemToP
                 <tbody>
                     {toDoItems && toDoItems.done && toDoItems.done.map((item, index) => (
                         <tr key={index} id={item.item_id}>
-                            <th scope="row" className='text-center'>{index + 1}</th>
+                            <th scope="row" className='text-end'>{index + 1}</th>
                             <td className='text-center'>{item.item_name}</td>
                             <td className='text-center'>{parseDate(item.due_date)}</td>
                             <td className='text-center'>{parseDate(item.complete_date)}</td>

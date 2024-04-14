@@ -161,11 +161,12 @@ const ToDoLists = ({ userid, localURL, apiURL }) => {
         DeleteToDoList(userid, listid);
     }
 
-    const handleDragList = () => {
-
-    }
-
     const handleDragStart = (index) => {
+
+        if (!editOrderIcon) {
+            return;
+        }
+
         setDraggingIndex(index);
     };
 
@@ -289,7 +290,7 @@ const ToDoLists = ({ userid, localURL, apiURL }) => {
                                     </div>
                                 )}
                                 {editOrderIcon && (
-                                    <div className="btn btn-secondary editicon mx-2" id={item.list_id} onClick={() => handleDragList()}>
+                                    <div className="btn btn-secondary editicon mx-2" id={item.list_id} onClick={() => toggoleOrderEdit}>
                                         <IoReorderFour />
                                     </div>
                                 )}
