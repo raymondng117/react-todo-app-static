@@ -48,6 +48,7 @@
     display: inline-block;
 }
 
+
 /* For mobile screen size */
 @media (max-width: 576px) {
     .title-tab {

@@ -7,6 +7,8 @@ import { RiDeleteBinLine } from "react-icons/ri";
 // import { DeleteToDoList } from "../../JS/DeleteToDoList";
 import ToDoItems from "./ToDoItems";
 import EditToDoItems from "./EditToDoItems";
+import { IoReorderFour } from "react-icons/io5";
+import { VscListUnordered } from "react-icons/vsc";
 
 const ToDoLists = ({ userid, localURL, apiURL }) => {
     const [toToDoLists, setToDoLists] = useState([]);
@@ -17,11 +19,9 @@ const ToDoLists = ({ userid, localURL, apiURL }) => {
     const [selectedItemFromChild, setSelectedItemFromChild] = useState(null);
     const [updatedItem, setUpdatedItem] = useState(false);
     const [selectedListIndex, setSelectedListIndex] = useState(null);
+    const [editOrderIcon, setEditOrderIcon] = useState(false);
+    const [draggingIndex, setDraggingIndex] = useState(null);
     const [selectedTab, setSelectedTab] = useState("lists");
-
-    const toggleTab = (tab) => {
-        setSelectedTab(tab);
-    }
 
 
     const handleSelectedItemFromChild = (selectedItem) => {
@@ -103,6 +103,10 @@ const ToDoLists = ({ userid, localURL, apiURL }) => {
             });
     }
 
+    const toggleTab = (tab) => {
+        setSelectedTab(tab);
+    }
+
     const toggleInputBox = () => {
         setListInputBox(true);
     }
@@ -114,6 +118,14 @@ const ToDoLists = ({ userid, localURL, apiURL }) => {
             setDeleteIcon(true);
         }
     };
+
+    const toggoleOrderEdit = () => {
+        if (editOrderIcon) {
+            setEditOrderIcon(false);
+        } else {
+            setEditOrderIcon(true);
+        }
+    }
 
     const handleSelectedList = (e, index) => {
         e.preventDefault();
@@ -149,6 +161,30 @@ const ToDoLists = ({ userid, localURL, apiURL }) => {
         DeleteToDoList(userid, listid);
     }
 
+    const handleDragList = () => {
+
+    }
+
+    const handleDragStart = (index) => {
+        setDraggingIndex(index);
+    };
+
+    const handleDragOver = (index) => {
+        if (draggingIndex === null || draggingIndex === index) return;
+
+        const newLists = [...toToDoLists];
+        const draggedItem = newLists[draggingIndex];
+        newLists.splice(draggingIndex, 1);
+        newLists.splice(index, 0, draggedItem);
+
+        setToDoLists(newLists);
+        setDraggingIndex(index);
+    };
+
+    const handleDragEnd = () => {
+        setDraggingIndex(null);
+    };
+
     useEffect(() => {
         const fetchToDoList = async () => {
             try {
@@ -172,7 +208,7 @@ const ToDoLists = ({ userid, localURL, apiURL }) => {
                 <div className={`col-4 title-tab ${selectedTab === "edit" ? "selected" : ""} fw-bold`} onClick={() => toggleTab("edit")}>Edit</div>
             </div>
 
-            {/* Entire todo list column */}
+            {/* Entire todo page*/}
             <div className=" d-flex flex-column flex-sm-row">
                 {/* lists */}
                 <div className={`todo-list-wrapper col-sm-3 col-12 content-section ${selectedTab === "lists" ? "open" : ""}`}>
@@ -192,15 +228,28 @@ const ToDoLists = ({ userid, localURL, apiURL }) => {
                                 <div className="btn btn-secondary d-flex justify-content-center align-items-center mx-2" onClick={toggleDeleteIcon}>
                                     <RiDeleteBinLine />
                                 </div>
+                                <div className="btn btn-secondary d-flex justify-content-center align-items-center mx-2" onClick={toggoleOrderEdit}>
+                                    <VscListUnordered />
+                                </div>
                             </div>
                         }
                         {/* to-do lists rendering */}
                         {toToDoLists && toToDoLists.map((item, index) => (
-                            <div className="d-flex my-1 align-items-center justify-content-center list-row" key={index}>
+                            <div className="d-flex my-1 align-items-center justify-content-center list-row" key={index}
+                            draggable // This makes the element draggable
+                            onDragStart={() => handleDragStart(index)}
+                            onDragOver={() => handleDragOver(index)}
+                            onDragEnd={handleDragEnd}
+                            >
                                 <div className={`btn btn-secondary list-item ${selectedListIndex === index ? 'selected' : ''}`} onClick={(e) => handleSelectedList(e, index)}>{item.list_name}</div>
                                 {deleteIcon && (
                                     <div className="btn btn-danger deleteicon mx-2" id={item.list_id} onClick={(e) => handleDeleteList(e, index, item.list_id)}>
                                         <FaTimes />
+                                    </div>
+                                )}
+                                {editOrderIcon && (
+                                    <div className="btn btn-secondary editicon mx-2" id={item.list_id} onClick={() => handleDragList()}>
+                                        <IoReorderFour />
                                     </div>
                                 )}
                             </div>
