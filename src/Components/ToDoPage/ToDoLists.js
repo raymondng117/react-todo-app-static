@@ -21,6 +21,7 @@ const ToDoLists = ({ userid, localURL, apiURL }) => {
     const [selectedListIndex, setSelectedListIndex] = useState(null);
     const [editOrderIcon, setEditOrderIcon] = useState(false);
     const [draggingIndex, setDraggingIndex] = useState(null);
+    const [listIndexBeforeDragging, setListIndexBeforeDragging] = useState(null)
     const [selectedTab, setSelectedTab] = useState("lists");
 
 
@@ -168,6 +169,8 @@ const ToDoLists = ({ userid, localURL, apiURL }) => {
         }
 
         setDraggingIndex(index);
+        setSelectedListIndex(null);
+        setSelectedList({})
     };
 
     const handleDragOver = (index) => {
