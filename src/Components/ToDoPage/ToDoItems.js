@@ -7,7 +7,7 @@ import { RiDeleteBinLine, RiDeleteBin2Fill } from "react-icons/ri";
 import { FaPlus, FaTimes, FaMinus } from 'react-icons/fa';
 import { FiEdit } from "react-icons/fi";
 
-const ToDoItems = ({ userid, selectedList, localURL, apiURL, sendSelectedItemToParent, updatedItem }) => {
+const ToDoItems = ({ userid, selectedList, localURL, apiURL, sendSelectedItemToParent, updatedItem, setSelectedTab }) => {
     const [toDoItems, setToDoItems] = useState({});
     const [toggleToDoList, setToggleToDoList] = useState(true);
     const [toggleDoingList, setToggleDoingList] = useState(true);
@@ -213,6 +213,7 @@ const ToDoItems = ({ userid, selectedList, localURL, apiURL, sendSelectedItemToP
 
     const handleSelectedItem = (itemid) => {
         GetToDoItemById(itemid)
+        setSelectedTab('edit')
     }
 
     useEffect(() => {

@@ -17,6 +17,12 @@ const ToDoLists = ({ userid, localURL, apiURL }) => {
     const [selectedItemFromChild, setSelectedItemFromChild] = useState(null);
     const [updatedItem, setUpdatedItem] = useState(false);
     const [selectedListIndex, setSelectedListIndex] = useState(null);
+    const [selectedTab, setSelectedTab] = useState("lists");
+
+    const toggleTab = (tab) => {
+        setSelectedTab(tab);
+    }
+
 
     const handleSelectedItemFromChild = (selectedItem) => {
         setSelectedItemFromChild(selectedItem);
@@ -50,25 +56,25 @@ const ToDoLists = ({ userid, localURL, apiURL }) => {
     }
 
     async function DeleteToDoList(userid, listid) {
-            await fetch(`${URL}/todolist/${userid}/${listid}`, {
-                method: "DELETE"
-            }).then(response => {
-                if (response.ok) {
-                    if (toToDoLists.length == 0) {
-                        setSelectedList([]);
-                    }
-
-                    if (toToDoLists[0].list_id == listid) {
-                        setSelectedList(toToDoLists[1])
-                    } else {
-                        setSelectedList(toToDoLists[0])
-                    } 
-                } else {
-                    throw new Error(`Failed to delete to-do list: ${response.statusText}`);
+        await fetch(`${URL}/todolist/${userid}/${listid}`, {
+            method: "DELETE"
+        }).then(response => {
+            if (response.ok) {
+                if (toToDoLists.length == 0) {
+                    setSelectedList([]);
                 }
-            }).catch(error => {
-                setAddListErr(error);
-            });
+
+                if (toToDoLists[0].list_id == listid) {
+                    setSelectedList(toToDoLists[1])
+                } else {
+                    setSelectedList(toToDoLists[0])
+                }
+            } else {
+                throw new Error(`Failed to delete to-do list: ${response.statusText}`);
+            }
+        }).catch(error => {
+            setAddListErr(error);
+        });
     }
 
     async function AddToDoList(userid, listname, inputValue) {
@@ -115,7 +121,7 @@ const ToDoLists = ({ userid, localURL, apiURL }) => {
         setSelectedList(selectedItem)
         setSelectedItemFromChild(null);
         setSelectedListIndex(index);
-
+        setSelectedTab("items");
     }
 
     const handleAddList = async (e) => {
@@ -158,10 +164,18 @@ const ToDoLists = ({ userid, localURL, apiURL }) => {
 
     return (
         <>
+            {/* Title Tabs */}
+            {/* Title Tabs for small screens */}
+            <div className="row d-sm-none text-center">
+                <div className={`col-4 title-tab ${selectedTab === "lists" ? "selected" : ""} fw-bold`} onClick={() => toggleTab("lists")}>Lists</div>
+                <div className={`col-4 title-tab ${selectedTab === "items" ? "selected" : ""} fw-bold`} onClick={() => toggleTab("items")}>Items</div>
+                <div className={`col-4 title-tab ${selectedTab === "edit" ? "selected" : ""} fw-bold`} onClick={() => toggleTab("edit")}>Edit</div>
+            </div>
+
             {/* Entire todo list column */}
-            <div className="todo-container d-flex">
+            <div className=" d-flex flex-column flex-sm-row">
                 {/* lists */}
-                <div className="todo-list-wrapper">
+                <div className={`todo-list-wrapper col-sm-3 col-12 content-section ${selectedTab === "lists" ? "open" : ""}`}>
                     <div className='fs-2 fw-bolder text-center lists text-center mb-3'>Lists</div>
                     <div className="todo-list d-flex flex-column align-items-center ">
                         {/* + button */}
@@ -196,20 +210,21 @@ const ToDoLists = ({ userid, localURL, apiURL }) => {
                 </div>
 
                 {/* items */}
-                <div className="todo-items-wrapper">
-                    <ToDoItems className="todo-item" userid={userid} selectedList={selectedList} localURL={localURL} apiURL={apiURL} 
-                    sendSelectedItemToParent={handleSelectedItemFromChild}
-                    updatedItem = {updatedItem}
+                <div className={`todo-items-wrapper col-sm-6 col-12 content-section ${selectedTab === "items" ? "open" : ""}`}>
+                    <ToDoItems className="todo-item" userid={userid} selectedList={selectedList} localURL={localURL} apiURL={apiURL}
+                        sendSelectedItemToParent={handleSelectedItemFromChild}
+                        updatedItem={updatedItem} setSelectedTab={setSelectedTab}
                     />
                 </div>
 
                 {/* editItem */}
-                <div className={`edit-item-wrapper ${!selectedItemFromChild && 'd-flex'} align-items-center justify-content-center`}>
+                <div className={`edit-item-wrapper align-items-center justify-content-center ${!selectedItemFromChild && 'd-flex'} content-section ${selectedTab === "edit" ? "open" : ""} col-sm-3 col-12`}>
                     <EditToDoItems localURL={localURL} apiURL={apiURL}
-                    sendUpdatedItemFromChild = {handleUpdatedItemFromChild}
-                    selectedItem = {selectedItemFromChild}
-                    selectedList = {selectedList}
-                />
+                        sendUpdatedItemFromChild={handleUpdatedItemFromChild}
+                        selectedItem={selectedItemFromChild}
+                        selectedList={selectedList}
+                        setSelectedTab={setSelectedTab}
+                    />
                 </div>
             </div>
         </>

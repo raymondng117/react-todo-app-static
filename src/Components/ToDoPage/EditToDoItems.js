@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import '../../CSS/editItemForm.css';
 import { LuClipboardEdit } from "react-icons/lu";
 
-const EditToDoItems = ({ selectedItem, apiURL, sendUpdatedItemFromChild, selectedList }) => {
+const EditToDoItems = ({ selectedItem, apiURL, sendUpdatedItemFromChild, selectedList, setSelectedTab }) => {
     const [formData, setFormData] = useState({});
     const [originalData, setOriginalData] = useState({})
     const [savedMsg, setSavedMsg] = useState('');
@@ -41,6 +41,7 @@ const EditToDoItems = ({ selectedItem, apiURL, sendUpdatedItemFromChild, selecte
             if (res.ok) {
                 setSavedMsg('Item has been updated.')
                 sendUpdatedItemFromChild(true);
+                setSelectedTab('items')
             }
         })
     };

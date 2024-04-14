@@ -1,6 +1,5 @@
 import Navbar from "../Navbar/Navbar";
 import ToDoLists from "./ToDoLists";
-import { useParams } from "react-router-dom";
 import '../../CSS/toDoPage.css';
 
 const ToDoPage = ({apiURL, localApiURL}) => {
