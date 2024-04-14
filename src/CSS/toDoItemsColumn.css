@@ -34,7 +34,7 @@
 
 .table th {
     font-size: 16px;
-    width: 25%;
+    /* width: 25%; */
 }
 
 .smaller-table th,
@@ -118,3 +118,4 @@
 .editButton:active {
     transform: translateY(1px); /* Move the button down slightly when clicked */
 }
+
