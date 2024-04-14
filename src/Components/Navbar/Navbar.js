@@ -11,7 +11,6 @@ const Navbar = () => {
     const [showDropdown, setShowDropdown] = useState(false);
     const navigate = useNavigate();
 
-
     function logOut() {
         sessionStorage.removeItem('signedInUser');
         setSignedInUser(null);
@@ -33,7 +32,7 @@ const Navbar = () => {
     return (
         <nav className="navbar">
             <Link to="/">
-                <div className="d-flex nav-brand align-content-center justify-content-center">
+                <div className="d-flex nav-brand align-content-center justify-content-start">
                     <TiTick className="nav-logo" />
                     <div className="fw-bold fs-3 title">To-Do</div>
                 </div>
