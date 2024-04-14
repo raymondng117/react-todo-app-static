@@ -288,12 +288,12 @@ const ToDoLists = ({ userid, localURL, apiURL }) => {
                             >
                                 <div className={`btn btn-secondary list-item ${selectedListIndex === index ? 'selected' : ''}`} onClick={(e) => handleSelectedList(e, index)}>{item.list_name}</div>
                                 {deleteIcon && (
-                                    <div className="btn btn-danger deleteicon mx-2" id={item.list_id} onClick={(e) => handleDeleteList(e, index, item.list_id)}>
+                                    <div className="btn btn-danger deleteicon ms-2" id={item.list_id} onClick={(e) => handleDeleteList(e, index, item.list_id)}>
                                         <FaTimes />
                                     </div>
                                 )}
                                 {editOrderIcon && (
-                                    <div className="btn btn-secondary editicon mx-2" id={item.list_id} onClick={() => toggoleOrderEdit}>
+                                    <div className="btn btn-secondary editicon ms-2" id={item.list_id} onClick={() => toggoleOrderEdit}>
                                         <IoReorderFour />
                                     </div>
                                 )}
