@@ -68,7 +68,7 @@
     }
     
     .content-section {
-      display: none;
+      display: none !important;
     }
     
     .content-section.open {
