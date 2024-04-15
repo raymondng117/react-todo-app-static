@@ -238,6 +238,7 @@ const ToDoLists = ({ userid, localURL, apiURL }) => {
             }
         };
         fetchToDoList();
+        setSelectedListIndex(0);
     }, []);
 
     return (
