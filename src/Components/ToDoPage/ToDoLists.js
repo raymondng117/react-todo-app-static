@@ -18,10 +18,11 @@ const ToDoLists = ({ userid, localURL, apiURL }) => {
     const [addListErr, setAddListErr] = useState('');
     const [selectedItemFromChild, setSelectedItemFromChild] = useState(null);
     const [updatedItem, setUpdatedItem] = useState(false);
-    const [selectedListIndex, setSelectedListIndex] = useState(null);
+    const [selectedListIndex, setSelectedListIndex] = useState(0);
     const [editOrderIcon, setEditOrderIcon] = useState(false);
     const [draggingIndex, setDraggingIndex] = useState(null);
-    const [listIndexBeforeDragging, setListIndexBeforeDragging] = useState(null)
+    const [savedListIdAfterDeleteing, setSavedListIdAfterDeleteing] = useState(null);
+    const [listIndexBeforeDragging, setListIndexBeforeDragging] = useState(null);
     const [selectedTab, setSelectedTab] = useState("lists");
 
 
@@ -56,20 +57,12 @@ const ToDoLists = ({ userid, localURL, apiURL }) => {
         }
     }
 
-    async function DeleteToDoList(userid, listid) {
+    async function DeleteToDoList(e, index, userid, listid) {
         await fetch(`${URL}/todolist/${userid}/${listid}`, {
             method: "DELETE"
         }).then(response => {
             if (response.ok) {
-                if (toToDoLists.length == 0) {
-                    setSelectedList([]);
-                }
-
-                if (toToDoLists[0].list_id == listid) {
-                    setSelectedList(toToDoLists[1])
-                } else {
-                    setSelectedList(toToDoLists[0])
-                }
+                handleDeleteList(e, index, listid);
             } else {
                 throw new Error(`Failed to delete to-do list: ${response.statusText}`);
             }
@@ -135,6 +128,7 @@ const ToDoLists = ({ userid, localURL, apiURL }) => {
         setSelectedItemFromChild(null);
         setSelectedListIndex(index);
         setSelectedTab("items");
+        setSavedListIdAfterDeleteing(null);
     }
 
     const handleAddList = async (e) => {
@@ -158,8 +152,28 @@ const ToDoLists = ({ userid, localURL, apiURL }) => {
         e.preventDefault();
         const newList = [...toToDoLists];
         newList.splice(index, 1);
-        setToDoLists(newList);
-        DeleteToDoList(userid, listid);
+        console.log(newList);
+
+        if (newList.length > 0) {
+            if (toToDoLists[0].list_id == listid) {
+                console.log(newList[0]);
+                setSelectedList(newList[0])
+                setSelectedListIndex(0)
+                console.log(selectedListIndex);
+            } else {
+                if (toToDoLists[selectedListIndex].list_id == listid) {
+                    setSelectedList(newList[0])
+                    setSelectedListIndex(0)
+                } else {
+                    setSavedListIdAfterDeleteing(toToDoLists[selectedListIndex].list_id);
+                }
+            }
+
+            setToDoLists(newList);
+        } else {
+            setToDoLists([]);
+            setSelectedListIndex(null);
+        }
     }
 
     const handleDragStart = (index) => {
@@ -238,8 +252,15 @@ const ToDoLists = ({ userid, localURL, apiURL }) => {
             }
         };
         fetchToDoList();
-        setSelectedListIndex(0);
     }, []);
+
+    useEffect(() => {
+        if (savedListIdAfterDeleteing) {
+            const newListIndexAfterDeleting = toToDoLists.findIndex(list => list.list_id === savedListIdAfterDeleteing);
+            setSelectedListIndex(newListIndexAfterDeleting);
+            setSavedListIdAfterDeleteing(null);
+        }
+    }, [savedListIdAfterDeleteing, toToDoLists]);
 
     return (
         <>
@@ -289,7 +310,7 @@ const ToDoLists = ({ userid, localURL, apiURL }) => {
                             >
                                 <div className={`btn btn-secondary list-item ${selectedListIndex === index ? 'selected' : ''}`} onClick={(e) => handleSelectedList(e, index)}>{item.list_name}</div>
                                 {deleteIcon && (
-                                    <div className="btn btn-danger deleteicon ms-2" id={item.list_id} onClick={(e) => handleDeleteList(e, index, item.list_id)}>
+                                    <div className="btn btn-danger deleteicon ms-2" id={item.list_id} onClick={(e) => DeleteToDoList(e, index, userid, item.list_id)}>
                                         <FaTimes />
                                     </div>
                                 )}
