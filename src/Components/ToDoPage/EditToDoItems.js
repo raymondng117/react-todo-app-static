@@ -9,6 +9,7 @@ const EditToDoItems = ({ selectedItem, apiURL, sendUpdatedItemFromChild, selecte
     const [reset, setReset] = useState(false);
     const [changedList, setChangedList] = useState(false);
 
+    // retrieve item
     let item = selectedItem;
     const URL = apiURL;
 
