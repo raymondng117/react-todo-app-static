@@ -121,49 +121,49 @@ const EditToDoItems = ({ selectedItem, apiURL, sendUpdatedItemFromChild, selecte
     }, [selectedList])
 
     return (
-        <div >
-            {
-                item && !changedList ? (
-                    <>
-                        <div className='fs-2 fw-bolder text-center lists text-center mb-3'>{formData.item_name}</div>
+        item && !changedList ? (
 
-                        <form className='editform container align-content-center justify-content-center' onSubmit={handleSubmitUpdatedItem}>
-                            <div className="mb-3">
-                                <label htmlFor="itemName" className="form-label">Name</label>
-                                <input type="text" className="form-control" id="itemName" name="item_name" defaultValue={formData.item_name} value={reset ? originalData.item_name : formData.item_name} onChange={handleInputChange} />
-                            </div>
-                            <div className="mb-3">
-                                <label htmlFor="itemStatus" className="form-label">Status</label>
-                                <select className="form-select" id="itemStatus" name="status" value={formData.status} onChange={handleInputChange}>
-                                    <option value="todo">To Do</option>
-                                    <option value="doing">Doing</option>
-                                    <option value="done">Done</option>
-                                </select>
-                            </div>
-                            <div className="mb-3">
-                                <label htmlFor="dueDate" className="form-label">Due Date</label>
-                                <input type="date" className="form-control" id="dueDate" name="due_date" defaultValue={formData.due_date} value={reset ? originalData.due_date : formData.due_date} onChange={handleInputChange} />
-                            </div>
-                            {formData.complete_date && <div className="mb-3">
-                                <label htmlFor="completeDate" className="form-label">Complete Date</label>
-                                <input type="date" className="form-control" id="completeDate" name="complete_date" defaultValue={formData.complete_date} value={reset ? originalData.complete_date : formData.complete_date} onChange={handleInputChange} />
-                            </div>}
-                            <div className='d-flex justify-content-around mt-4'>
-                                <button type="submit" className='btn btn-primary'>Save</button>
-                                <div className='btn btn-secondary' onClick={handleReset}>Reset</div>
-                            </div>
-                            {savedMsg && <div className='mt-3 text-center fs-6 fw-bold text-white'>{savedMsg}</div>}
-                        </form>
-                    </>
-                ) : (
-                    <div className='d-flex align-items-center justify-content-center'>
-                        <div className='d-flex flex-column align-items-center justify-content-center'>
-                            <LuClipboardEdit className='editIcon-item' />
-                            <h3>Select an item to edit</h3>
-                        </div>
+            <div className='align-items-center justify-content-center d-flex flex-column'>
+                <div className='fs-2 fw-bolder text-center lists text-center mb-3'>{formData.item_name}</div>
+
+                <form className='editform container align-content-center justify-content-center' onSubmit={handleSubmitUpdatedItem}>
+                    <div className="mb-3">
+                        <label htmlFor="itemName" className="form-label">Name</label>
+                        <input type="text" className="form-control" id="itemName" name="item_name" defaultValue={formData.item_name} value={reset ? originalData.item_name : formData.item_name} onChange={handleInputChange} />
                     </div>
-                )}
-        </div >
+                    <div className="mb-3">
+                        <label htmlFor="itemStatus" className="form-label">Status</label>
+                        <select className="form-select" id="itemStatus" name="status" value={formData.status} onChange={handleInputChange}>
+                            <option value="todo">To Do</option>
+                            <option value="doing">Doing</option>
+                            <option value="done">Done</option>
+                        </select>
+                    </div>
+                    <div className="mb-3">
+                        <label htmlFor="dueDate" className="form-label">Due Date</label>
+                        <input type="date" className="form-control" id="dueDate" name="due_date" defaultValue={formData.due_date} value={reset ? originalData.due_date : formData.due_date} onChange={handleInputChange} />
+                    </div>
+                    {formData.complete_date && <div className="mb-3">
+                        <label htmlFor="completeDate" className="form-label">Complete Date</label>
+                        <input type="date" className="form-control" id="completeDate" name="complete_date" defaultValue={formData.complete_date} value={reset ? originalData.complete_date : formData.complete_date} onChange={handleInputChange} />
+                    </div>}
+                    <div className='d-flex justify-content-around mt-4'>
+                        <button type="submit" className='btn btn-primary'>Save</button>
+                        <div className='btn btn-secondary' onClick={handleReset}>Reset</div>
+                    </div>
+                    {savedMsg && <div className='mt-3 text-center fs-6 fw-bold text-white'>{savedMsg}</div>}
+                </form>
+            </div>
+
+
+        ) : (
+            <div className='d-flex align-items-center justify-content-center selectItemIcon'>
+                <div className='d-flex flex-column align-items-center justify-content-center'>
+                    <LuClipboardEdit className='editIcon-item' />
+                    <h3>Select an item to edit</h3>
+                </div>
+            </div>
+        )
     );
 }
 

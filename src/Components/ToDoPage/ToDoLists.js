@@ -313,7 +313,7 @@ const ToDoLists = ({ userid, localURL, apiURL }) => {
 
                 {/* editItem */}
                 <div className={`content-section ${selectedTab === "edit" ? "open" : ""} col-sm-3 col-12`}>
-                    <div className={`edit-item-wrapper align-items-center justify-content-center ${!selectedItemFromChild && 'd-flex'} `}>
+                    <div className={`edit-item-wrapper `}>
                         <EditToDoItems localURL={localURL} apiURL={apiURL}
                             sendUpdatedItemFromChild={handleUpdatedItemFromChild}
                             selectedItem={selectedItemFromChild}
