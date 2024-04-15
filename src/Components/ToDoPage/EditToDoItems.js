@@ -121,8 +121,7 @@ const EditToDoItems = ({ selectedItem, apiURL, sendUpdatedItemFromChild, selecte
     }, [selectedList])
 
     return (
-        // ${!selectedItemFromChild && 'd-flex'}
-        <div className='align-items-center justify-content-center d-flex'>
+        <div >
             {
                 item && !changedList ? (
                     <>

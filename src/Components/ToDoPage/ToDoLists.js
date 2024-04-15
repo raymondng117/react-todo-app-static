@@ -196,21 +196,21 @@ const ToDoLists = ({ userid, localURL, apiURL }) => {
     // const handleTouchMove = (event) => {
     //     // Prevent default touch behavior to prevent scrolling while dragging
     //     event.preventDefault();
-    
+
     //     if (draggingIndex === null) return;
-    
+
     //     // Get the touch position relative to the container
     //     const touchY = event.touches[0].clientY;
     //     const containerRect = event.currentTarget.getBoundingClientRect();
     //     const relativeY = touchY - containerRect.top;
-    
+
     //     // Calculate the index of the list item being dragged
     //     const itemHeight = containerRect.height / toToDoLists.length;
     //     let newIndex = Math.floor(relativeY / itemHeight);
-    
+
     //     // Ensure the index stays within bounds
     //     newIndex = Math.max(0, Math.min(toToDoLists.length - 1, newIndex));
-    
+
     //     // If the new index is different from the current dragging index, update the lists order
     //     if (newIndex !== draggingIndex) {
     //         const newLists = [...toToDoLists];
@@ -221,7 +221,7 @@ const ToDoLists = ({ userid, localURL, apiURL }) => {
     //         setDraggingIndex(newIndex);
     //     }
     // };
-    
+
 
     // const handleTouchEnd = () => {
     //     setDraggingIndex(null);
@@ -278,10 +278,10 @@ const ToDoLists = ({ userid, localURL, apiURL }) => {
                         {/* to-do lists rendering */}
                         {toToDoLists && toToDoLists.map((item, index) => (
                             <div className="d-flex my-1 align-items-center justify-content-center list-row" key={index}
-                            draggable // This makes the element draggable
-                            onDragStart={() => handleDragStart(index)}
-                            onDragOver={() => handleDragOver(index)}
-                            onDragEnd={handleDragEnd}
+                                draggable // This makes the element draggable
+                                onDragStart={() => handleDragStart(index)}
+                                onDragOver={() => handleDragOver(index)}
+                                onDragEnd={handleDragEnd}
                             // onTouchStart={() => handleTouchStart(index)}
                             // onTouchMove={(event) => handleTouchMove(event)}
                             // onTouchEnd={handleTouchEnd}
@@ -312,13 +312,15 @@ const ToDoLists = ({ userid, localURL, apiURL }) => {
                 </div>
 
                 {/* editItem */}
-                <div className={`edit-item-wrapper col-sm-3 col-12 content-section ${selectedTab === "edit" ? "open" : ""} `}>
-                    <EditToDoItems localURL={localURL} apiURL={apiURL}
-                        sendUpdatedItemFromChild={handleUpdatedItemFromChild}
-                        selectedItem={selectedItemFromChild}
-                        selectedList={selectedList}
-                        setSelectedTab={setSelectedTab}
-                    />
+                <div className={`content-section ${selectedTab === "edit" ? "open" : ""} col-sm-3 col-12`}>
+                    <div className={`edit-item-wrapper align-items-center justify-content-center ${!selectedItemFromChild && 'd-flex'} `}>
+                        <EditToDoItems localURL={localURL} apiURL={apiURL}
+                            sendUpdatedItemFromChild={handleUpdatedItemFromChild}
+                            selectedItem={selectedItemFromChild}
+                            selectedList={selectedList}
+                            setSelectedTab={setSelectedTab}
+                        />
+                    </div>
                 </div>
             </div>
         </>
