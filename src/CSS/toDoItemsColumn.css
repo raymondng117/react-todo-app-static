@@ -17,32 +17,25 @@
 .arrowicon {
     height: 100%;
     transition: color 0.3s;
-    /* Smooth transition effect */
 }
 
 .arrowicon:hover {
     color: #fff;
-    /* Change icon color on hover */
 }
 
 .table td {
     font-size: 14px;
-    /* Adjust font size */
     padding: 0.5rem;
-    /* Adjust padding */
 }
 
 .table th {
     font-size: 16px;
-    /* width: 25%; */
 }
 
 .smaller-table th,
 .smaller-table td {
     font-size: 12px;
-    /* Adjust font size */
     padding: 0.3rem;
-    /* Adjust padding */
 }
 
 .add-item-input {
