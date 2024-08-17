@@ -149,7 +149,7 @@ const EditToDoItems = ({ selectedItem, apiURL, sendUpdatedItemFromChild, selecte
                         <input type="date" className="form-control" id="completeDate" name="complete_date" defaultValue={formData.complete_date} value={reset ? originalData.complete_date : formData.complete_date} onChange={handleInputChange} />
                     </div>}
                     <div className='d-flex justify-content-around mt-4'>
-                        <button type="submit" className='btn btn-primary'>Save</button>
+                        <button type="submit" className='btn btn-primary' id="saveUpdatedItemButton" >Save</button>
                         <div className='btn btn-secondary' onClick={handleReset}>Reset</div>
                     </div>
                     {savedMsg && <div className='mt-3 text-center fs-6 fw-bold text-white'>{savedMsg}</div>}

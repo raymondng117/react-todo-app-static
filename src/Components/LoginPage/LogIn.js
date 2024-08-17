@@ -85,10 +85,10 @@ const Login = ({ apiURL }) => {
                         <label htmlFor="password">Password:</label>
                         <input type="password" id="password" className='form-control' value={password} onChange={(e) => handleChangePassword(e)} />
                     </div>
-                    <button type="submit">Login</button>
+                    <button type="submit" id='loginBtn'>Login</button>
                 </form>
                 <div className='mt-4 text-white fw-bold'>
-                    Click <Link className="fw-bold" to="/signup">sign up</Link> if you don't have an account.
+                    Click <Link className="fw-bold" to="/signup" id="signUpLink">sign up</Link> if you don't have an account.
                 </div>
                 {errMsg && <div className='mt-4 text-danger fw-bold'>{errMsg}</div>}
             </div>

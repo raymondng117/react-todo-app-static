@@ -262,18 +262,18 @@ const ToDoItems = ({ userid, selectedList, localURL, apiURL, sendSelectedItemToP
             <div className="d-flex justify-content-between mb-2 border-bottom border-1 tool-bar">
                 {toggleItemInput ? <div className='addItem'>
                     <input type="text"
-                        placeholder="Add an item" className='add-item-input' onKeyDown={(e) => {
+                        placeholder="Add an item" className='add-item-input' id="toDoItemInput" onKeyDown={(e) => {
                             if (e.key === "Enter") {
                                 handleAddNewItem(e);
                                 setToggleItemInput(false);
                             }
                         }} />
-                </div> : <div className='btn d-flex align-items-center tool-button' onClick={handleToggleItemInput}>
+                </div> : <div className='btn d-flex align-items-center tool-button' id="toDoItemInputButton" onClick={handleToggleItemInput}>
                     <FaPlus />
                     <div className='ms-2 fw-bold'>Add a new item</div>
                 </div>
                 }
-                <div className='btn d-flex align-items-center tool-button' onClick={handleToggleDeleteButton}>
+                <div className='btn d-flex align-items-center tool-button' id="toDoItemDeleteButton" onClick={handleToggleDeleteButton}>
                     <RiDeleteBinLine />
                     <div className='ms-2 fw-bold'>Delete items</div>
                 </div>
@@ -296,22 +296,26 @@ const ToDoItems = ({ userid, selectedList, localURL, apiURL, sendSelectedItemToP
                             <th scope="col" className='col-1 text-center'></th>
                         </tr>
                     </thead>
-                    <tbody>
+                    <tbody id="toDoItemTable">
                         {toDoItems && toDoItems.toDo && toDoItems.toDo.map((item, index) => (
-                            <tr key={index}>
-                                <th scope="row" className='text-end'> {index + 1} </th>
+                            <tr key={index} className="todo-item-row">
+                                <th scope="row" className='text-end item-number'> {index + 1} </th>
                                 <td className='text-center'>{item.item_name}</td>
                                 <td className='text-center'>{parseDate(item.due_date)}</td>
                                 <td className='text-center'>{parseDate(item.complete_date)}</td>
                                 <td>
                                     <div className='d-flex align-content-center justify-content-end'>
-                                        <FiEdit className='me-2 editButton' onClick={() => handleSelectedItem(item.item_id)} />
-                                        {deleteButton && (
+                                        <div className='me-2 editButton d-flex text-center align-content-center' onClick={() => handleSelectedItem(item.item_id)}>
+                                            <FiEdit />
+                                        </div>
+                                        {deleteButton && (<div className='deleteButton d-flex text-center align-content-center'
+                                            onClick={() => handleDeleteItem(item.status, item.item_id)}>
                                             <RiDeleteBin2Fill
-                                                className='deleteButton'
-                                                onClick={() => handleDeleteItem(item.status, item.item_id)}
                                             />
+                                        </div>
+
                                         )}
+
                                     </div>
                                 </td>
                             </tr>
@@ -335,22 +339,25 @@ const ToDoItems = ({ userid, selectedList, localURL, apiURL, sendSelectedItemToP
                         <th scope="col" className='col-1 text-center'></th>
                     </tr>
                 </thead>
-                <tbody>
+                <tbody id="doingItemTable">
                     {toDoItems && toDoItems.doing && toDoItems.doing.map((item, index) => (
-                        <tr key={index} id={item.item_id}>
-                            <th scope="row" className='text-end'>{index + 1}</th>
+                        <tr key={index} id={item.item_id} className="doing-item-row">
+                            <th scope="row" className='text-end item-number'>{index + 1}</th>
                             <td className='text-center'>{item.item_name}</td>
                             <td className='text-center'>{parseDate(item.due_date)}</td>
                             <td className='text-center'> {parseDate(item.complete_date)}</td>
                             <td>
-                                <div className='d-flex justify-content-end'>
-                                    {<FiEdit className='me-2 editButton' onClick={() => handleSelectedItem(item.item_id)} />}
-                                    {deleteButton &&
+                                <div className='d-flex align-content-center justify-content-end'>
+                                    <div className='me-2 editButton d-flex text-center align-content-center' onClick={() => handleSelectedItem(item.item_id)}>
+                                        <FiEdit />
+                                    </div>
+                                    {deleteButton && (<div className='deleteButton d-flex text-center align-content-center'
+                                        onClick={() => handleDeleteItem(item.status, item.item_id)}>
                                         <RiDeleteBin2Fill
-                                            className='deleteButton'
-                                            onClick={() => handleDeleteItem(item.status, item.item_id)}
                                         />
-                                    }
+                                    </div>
+
+                                    )}
                                 </div>
                             </td>
                         </tr>
@@ -373,22 +380,25 @@ const ToDoItems = ({ userid, selectedList, localURL, apiURL, sendSelectedItemToP
                         <th scope="col" className='col-1 text-center'></th>
                     </tr>
                 </thead>
-                <tbody>
+                <tbody id="doneItemTable">
                     {toDoItems && toDoItems.done && toDoItems.done.map((item, index) => (
-                        <tr key={index} id={item.item_id}>
-                            <th scope="row" className='text-end'>{index + 1}</th>
+                        <tr key={index} id={item.item_id} className="done-item-row">
+                            <th scope="row" className='text-end item-number'>{index + 1}</th>
                             <td className='text-center'>{item.item_name}</td>
                             <td className='text-center'>{parseDate(item.due_date)}</td>
                             <td className='text-center'>{parseDate(item.complete_date)}</td>
                             <td>
-                                <div className='d-flex justify-content-end'>
-                                    {<FiEdit className='me-2 editButton' onClick={() => handleSelectedItem(item.item_id)} />}
-                                    {deleteButton &&
+                                <div className='d-flex align-content-center justify-content-end'>
+                                    <div className='me-2 editButton d-flex text-center align-content-center' onClick={() => handleSelectedItem(item.item_id)}>
+                                        <FiEdit />
+                                    </div>
+                                    {deleteButton && (<div className='deleteButton d-flex text-center align-content-center'
+                                        onClick={() => handleDeleteItem(item.status, item.item_id)}>
                                         <RiDeleteBin2Fill
-                                            className='deleteButton'
-                                            onClick={() => handleDeleteItem(item.status, item.item_id)}
                                         />
-                                    }
+                                    </div>
+
+                                    )}
                                 </div>
                             </td>
                         </tr>

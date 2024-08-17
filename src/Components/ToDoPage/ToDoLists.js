@@ -1,28 +1,36 @@
 import { useState, useEffect } from "react";
-//import { GetToDoLists } from "../../JS/GetToDoLists";
+
 import '../../CSS/toDoListsColumn.css';
-import { FaPlus, FaTimes } from 'react-icons/fa';
-// import { AddToDoList } from "../../JS/AddToDoList";
-import { RiDeleteBinLine } from "react-icons/ri";
-// import { DeleteToDoList } from "../../JS/DeleteToDoList";
+
 import ToDoItems from "./ToDoItems";
 import EditToDoItems from "./EditToDoItems";
+
+import { FaPlus, FaTimes } from 'react-icons/fa';
+import { RiDeleteBinLine } from "react-icons/ri";
 import { IoReorderFour } from "react-icons/io5";
 import { VscListUnordered } from "react-icons/vsc";
 
+//import { GetToDoLists } from "../../JS/GetToDoLists";
+// import { AddToDoList } from "../../JS/AddToDoList";
+// import { DeleteToDoList } from "../../JS/DeleteToDoList";
+
 const ToDoLists = ({ userid, localURL, apiURL }) => {
+    const URL = apiURL;
+
     const [toToDoLists, setToDoLists] = useState([]);
+
     const [listInputBox, setListInputBox] = useState(false);
-    const [deleteIcon, setDeleteIcon] = useState(false)
+    const [deleteIcon, setDeleteIcon] = useState(false);
+    const [editOrderIcon, setEditOrderIcon] = useState(false);
+    const [editListIcon, setEditListIcon] = useState(false);
+
     const [selectedList, setSelectedList] = useState({});
     const [addListErr, setAddListErr] = useState('');
     const [selectedItemFromChild, setSelectedItemFromChild] = useState(null);
     const [updatedItem, setUpdatedItem] = useState(false);
     const [selectedListIndex, setSelectedListIndex] = useState(0);
-    const [editOrderIcon, setEditOrderIcon] = useState(false);
     const [draggingIndex, setDraggingIndex] = useState(null);
     const [savedListIdAfterDeleteing, setSavedListIdAfterDeleteing] = useState(null);
-    const [listIndexBeforeDragging, setListIndexBeforeDragging] = useState(null);
     const [selectedTab, setSelectedTab] = useState("lists");
 
 
@@ -33,9 +41,6 @@ const ToDoLists = ({ userid, localURL, apiURL }) => {
     const handleUpdatedItemFromChild = (updatedMsg) => {
         setUpdatedItem(updatedMsg);
     }
-
-
-    const URL = apiURL;
 
     async function GetToDoLists(userid) {
         try {
@@ -113,6 +118,14 @@ const ToDoLists = ({ userid, localURL, apiURL }) => {
         }
     };
 
+    const toggleEditListIcon = () => {
+        if (editListIcon) {
+            setEditListIcon(false);
+        } else {
+            setEditListIcon(true);
+        }
+    }
+
     const toggoleOrderEdit = () => {
         if (editOrderIcon) {
             setEditOrderIcon(false);
@@ -147,7 +160,6 @@ const ToDoLists = ({ userid, localURL, apiURL }) => {
         }
     }
 
-
     const handleDeleteList = (e, index, listid) => {
         e.preventDefault();
         const newList = [...toToDoLists];
@@ -176,6 +188,9 @@ const ToDoLists = ({ userid, localURL, apiURL }) => {
         }
     }
 
+    // const handleEditListName = (e, index, listid) => {
+    // }
+
     const handleDragStart = (index) => {
 
         if (!editOrderIcon) {
@@ -202,44 +217,6 @@ const ToDoLists = ({ userid, localURL, apiURL }) => {
     const handleDragEnd = () => {
         setDraggingIndex(null);
     };
-
-    // const handleTouchStart = (index) => {
-    //     setDraggingIndex(index);
-    // };
-
-    // const handleTouchMove = (event) => {
-    //     // Prevent default touch behavior to prevent scrolling while dragging
-    //     event.preventDefault();
-
-    //     if (draggingIndex === null) return;
-
-    //     // Get the touch position relative to the container
-    //     const touchY = event.touches[0].clientY;
-    //     const containerRect = event.currentTarget.getBoundingClientRect();
-    //     const relativeY = touchY - containerRect.top;
-
-    //     // Calculate the index of the list item being dragged
-    //     const itemHeight = containerRect.height / toToDoLists.length;
-    //     let newIndex = Math.floor(relativeY / itemHeight);
-
-    //     // Ensure the index stays within bounds
-    //     newIndex = Math.max(0, Math.min(toToDoLists.length - 1, newIndex));
-
-    //     // If the new index is different from the current dragging index, update the lists order
-    //     if (newIndex !== draggingIndex) {
-    //         const newLists = [...toToDoLists];
-    //         const draggedItem = newLists[draggingIndex];
-    //         newLists.splice(draggingIndex, 1);
-    //         newLists.splice(newIndex, 0, draggedItem);
-    //         setToDoLists(newLists);
-    //         setDraggingIndex(newIndex);
-    //     }
-    // };
-
-
-    // const handleTouchEnd = () => {
-    //     setDraggingIndex(null);
-    // };
 
     useEffect(() => {
         const fetchToDoList = async () => {
@@ -279,19 +256,22 @@ const ToDoLists = ({ userid, localURL, apiURL }) => {
                     <div className='fs-2 fw-bolder text-center lists text-center mb-3'>Lists</div>
                     <div className="todo-list d-flex flex-column align-items-center ">
                         {/* + button */}
-                        {listInputBox ? <input className="list-item form-control" onKeyDown={(e) => {
+                        {listInputBox ? <input className="list-item form-control" id="toDoListInput" onKeyDown={(e) => {
                             if (e.key === "Enter") {
                                 handleAddList(e);
                                 setListInputBox(false);
                             }
                         }}></input> :
                             <div className="d-flex justify-content-between mb-2 plusminusflex">
-                                <div className="btn btn-secondary d-flex justify-content-center align-items-center mx-2" onClick={toggleInputBox}>
+                                <div className="btn btn-secondary d-flex justify-content-center align-items-center mx-2" id="toDoListInputButton" onClick={toggleInputBox}>
                                     <FaPlus />
                                 </div>
-                                <div className="btn btn-secondary d-flex justify-content-center align-items-center mx-2" onClick={toggleDeleteIcon}>
+                                <div className="btn btn-secondary d-flex justify-content-center align-items-center mx-2" id="toDoListDeleteButton" onClick={toggleDeleteIcon}>
                                     <RiDeleteBinLine />
                                 </div>
+                                {/* <div className="btn btn-secondary d-flex justify-content-center align-items-center mx-2" onClick={toggleEditListIcon}>
+                                    <CiEdit />
+                                </div> */}
                                 <div className="btn btn-secondary d-flex justify-content-center align-items-center mx-2" onClick={toggoleOrderEdit}>
                                     <VscListUnordered />
                                 </div>
@@ -300,13 +280,10 @@ const ToDoLists = ({ userid, localURL, apiURL }) => {
                         {/* to-do lists rendering */}
                         {toToDoLists && toToDoLists.map((item, index) => (
                             <div className="d-flex my-1 align-items-center justify-content-center list-row" key={index}
-                                draggable // This makes the element draggable
+                                draggable 
                                 onDragStart={() => handleDragStart(index)}
                                 onDragOver={() => handleDragOver(index)}
                                 onDragEnd={handleDragEnd}
-                            // onTouchStart={() => handleTouchStart(index)}
-                            // onTouchMove={(event) => handleTouchMove(event)}
-                            // onTouchEnd={handleTouchEnd}
                             >
                                 <div className={`btn btn-secondary list-item ${selectedListIndex === index ? 'selected' : ''}`} onClick={(e) => handleSelectedList(e, index)}>{item.list_name}</div>
                                 {deleteIcon && (

@@ -82,7 +82,7 @@ const SignUp = ({ apiURL }) => {
                         <label htmlFor="password">Password:</label>
                         <input type="password" id="password" className='form-control' value={password} onChange={(e) => setPassword(e.target.value)} required />
                     </div>
-                    <button type="submit" onClick={ handleSignUp}>Sign Up</button>
+                    <button type="submit" id="signupBtn" onClick={ handleSignUp}>Sign Up</button>
                 </form>
                 
                 {signedUp ? <div className='mt-2 text-info fw-bold'>Sign up successfully! Wait to be directed in secs.</div> : <div className='mt-4 text-white fw-bold'>
